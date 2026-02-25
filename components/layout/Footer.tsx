@@ -13,7 +13,7 @@ export default function Footer() {
             Acceloka is your all-in-one booking platform for travel and
             entertainment. From flights and hotels to movies and concerts, we
             offer a fast, easy, and secure way to plan your next experience
-            hassle-free.
+            hassel-free.
           </p>
         </div>
 
