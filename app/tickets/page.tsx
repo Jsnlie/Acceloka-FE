@@ -1,6 +1,66 @@
+"use client";
+import Image from "next/image";
+import Link from "next/link";
+import TicketCard from "@/components/tickets/TicketCard";
+import { useEffect, useState } from "react";
+import { Ticket } from "@/types/Ticket";
 
-export default function page(){
+export default function AvailableTicket(){
+    const [tickets, setTickets] = useState<Ticket[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchTickets() {
+      try {
+        const res = await fetch(
+          "http://localhost:5197/api/v1/get-available-ticket?page=1&pageSize=10",
+        );
+        const data = await res.json();
+
+        const sorted = data.tickets.sort((a: Ticket, b: Ticket) => 
+          a.ticketCode.localeCompare(b.ticketCode)
+        );
+
+        setTickets(sorted);
+      } catch (error) {
+        console.error("Error fetching tickets:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchTickets();
+  }, []);
+
     return(
-        <></>
+      <section className="min-h-screen flex items-center bg-white py-16">
+        <div className="w-full max-w-6xl mx-auto px-8">
+          <div className="flex justify-between items-center mb-10">
+            <h2 className="text-3xl font-extrabold text-black">
+              Popular Tickets
+            </h2>
+          </div>
+
+          {loading ? (
+            <p>Loading tickets...</p>
+          ) : (
+            <div className="grid md:grid-cols-3 gap-8">
+              {tickets.map((ticket, index) => (
+                <TicketCard
+                  key={ticket.ticketCode}
+                  ticket={ticket}
+                  image={[
+                    "/AVENGERS doomsday.jpeg",
+                    "/Disney-Cruise.jpeg",
+                    "/Ritz-Carlton Jakarta.avif",
+                    "/H2H Fanmeeting.png",
+                    "/whoosh.jpeg",
+                    "/Bali.jpeg"
+                  ][index]}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
     );
 }

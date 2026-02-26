@@ -17,7 +17,11 @@ export default function Home() {
         );
         const data = await res.json();
 
-        setTickets(data.tickets);
+        const sorted = data.tickets.sort((a: Ticket, b: Ticket) => 
+          a.ticketCode.localeCompare(b.ticketCode)
+        );
+
+        setTickets(sorted);
       } catch (error) {
         console.error("Error fetching tickets:", error);
       } finally {
@@ -43,7 +47,7 @@ export default function Home() {
         <div className="relative z-20 flex flex-col gap-4 px-14 py-12 max-w-[520px]">
           <h1 className="flex flex-col gap-1 m-0">
             <span className="text-5xl font-extrabold text-white leading-tight">
-              All Your Tickets.
+              All Your Tickets
             </span>
             <span className="text-5xl font-extrabold text-[#948D55] leading-tight">
               One Platform.
@@ -52,7 +56,6 @@ export default function Home() {
 
           <p className="text-sm text-[#9B9A91] font-normal leading-relaxed max-w-[380px] drop-shadow">
             Book movie tickets, train tickets, ferry tickets, plane tickets,
-            <br />
             and hotels quickly, easily, and reliably.
           </p>
         </div>
@@ -78,20 +81,22 @@ export default function Home() {
             <p>Loading tickets...</p>
           ) : (
             <div className="grid md:grid-cols-3 gap-8">
-              {tickets.slice(0, 3).map((ticket) => (
-                <TicketCard key={ticket.ticketCode} ticket={ticket} />
+              {tickets.slice(0, 3).map((ticket, index) => (
+                <TicketCard
+                  key={ticket.ticketCode}
+                  ticket={ticket}
+                  image={[
+                    "/AVENGERS doomsday.jpeg",
+                    "/Disney-Cruise.jpeg",
+                    "/Ritz-Carlton Jakarta.avif",
+                  ][index]}
+                />
               ))}
             </div>
           )}
         </div>
       </section>
-      
-      {/* ABOUT SECTION */}
-      <section>
-          <div>
-            
-          </div>
-      </section>
+
     </div>
   );
 }
