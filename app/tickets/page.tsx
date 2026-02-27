@@ -5,7 +5,7 @@ import TicketCard from "@/components/tickets/TicketCard";
 import { useEffect, useState } from "react";
 import { Ticket } from "@/types/Ticket";
 
-export default function AvailableTicket(){
+export default function AvailableTicketPage(){
     const [tickets, setTickets] = useState<Ticket[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -17,11 +17,7 @@ export default function AvailableTicket(){
         );
         const data = await res.json();
 
-        const sorted = data.tickets.sort((a: Ticket, b: Ticket) => 
-          a.ticketCode.localeCompare(b.ticketCode)
-        );
-
-        setTickets(sorted);
+        setTickets(data.tickets);
       } catch (error) {
         console.error("Error fetching tickets:", error);
       } finally {

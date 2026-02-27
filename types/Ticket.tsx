@@ -6,4 +6,5 @@ export interface Ticket {
   price: number;
   quota: number;
   remainingQuota: number;
+  bookedTicketId : string;
 }

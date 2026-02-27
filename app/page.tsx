@@ -16,12 +16,8 @@ export default function Home() {
           "http://localhost:5197/api/v1/get-available-ticket?page=1&pageSize=10",
         );
         const data = await res.json();
-
-        const sorted = data.tickets.sort((a: Ticket, b: Ticket) => 
-          a.ticketCode.localeCompare(b.ticketCode)
-        );
-
-        setTickets(sorted);
+        
+        setTickets(data.tickets);
       } catch (error) {
         console.error("Error fetching tickets:", error);
       } finally {

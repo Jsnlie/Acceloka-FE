@@ -23,7 +23,6 @@ export default function BookTicket({ ticket, onClose }: BookTicketProps) {
     };
   }, []);
 
-
   const handleBook = async () => {
     if (quantity < 1) {
       setError("Quantity must be at least 1");
@@ -42,8 +41,8 @@ export default function BookTicket({ ticket, onClose }: BookTicketProps) {
         body: JSON.stringify({
           tickets: [
             {
-                ticketCode: ticket.ticketCode,
-                quantity: quantity,
+              ticketCode: ticket.ticketCode,
+              quantity: quantity,
             },
           ],
         }),
@@ -92,7 +91,9 @@ export default function BookTicket({ ticket, onClose }: BookTicketProps) {
           <div className="flex flex-col items-center justify-center h-full gap-4">
             <div className="text-green-500 text-6xl">✓</div>
 
-            <h2 className="text-2xl font-bold text-black">Booking Confirmed!</h2>
+            <h2 className="text-2xl font-bold text-black">
+              Booking Confirmed!
+            </h2>
 
             <p className="text-center text-gray-500">
               Successfully booked{" "}
