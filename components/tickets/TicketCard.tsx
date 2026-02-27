@@ -6,9 +6,10 @@ import BookTicket from "./BookTicket";
 interface TicketCardProps {
   ticket: Ticket;
   image?: string;
+  onBookSuccess?: () => void; // ← tambah ini
 }
 
-export default function TicketCard({ ticket, image }: TicketCardProps) {
+export default function TicketCard({ ticket, image, onBookSuccess }: TicketCardProps) {
   const [showModal, setShowModal] = useState(false);
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:scale-105 transition duration-300">
@@ -52,7 +53,11 @@ export default function TicketCard({ ticket, image }: TicketCardProps) {
       </div>
 
       {showModal && (
-        <BookTicket ticket={ticket} onClose={() => setShowModal(false)} />
+        <BookTicket
+          ticket={ticket}
+          onClose={() => setShowModal(false)}
+          onSuccess={onBookSuccess} // ← tambah ini
+        />
       )}
     </div>
   );

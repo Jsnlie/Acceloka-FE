@@ -7,9 +7,10 @@ import { Ticket } from "@/types/Ticket";
 interface BookTicketProps {
   ticket: Ticket;
   onClose: () => void;
+  onSuccess?: () => void; // ← tambah ini
 }
 
-export default function BookTicket({ ticket, onClose }: BookTicketProps) {
+export default function BookTicket({ ticket, onClose, onSuccess }: BookTicketProps) {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -51,6 +52,7 @@ export default function BookTicket({ ticket, onClose }: BookTicketProps) {
       if (!res.ok) throw new Error();
 
       setSuccess(true);
+      onSuccess?.(); // ← panggil setelah berhasil
     } catch {
       setError("Failed to book ticket.");
     } finally {
